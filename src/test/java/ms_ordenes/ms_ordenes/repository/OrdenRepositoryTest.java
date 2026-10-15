@@ -7,6 +7,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -20,7 +21,10 @@ class OrdenRepositoryTest {
 
     @Test
     void testFindByIdUsuario() {
-        Orden orden = new Orden(1L, 100L, 5000.0, EstadoOrden.PENDIENTE, null);
+        Orden orden = new Orden(100L, new BigDecimal("5000.00"));
+        orden.setId(1L);
+        orden.setEstado(EstadoOrden.PENDIENTE);
+
         when(ordenRepository.findByIdUsuario(100L)).thenReturn(List.of(orden));
 
         List<Orden> resultado = ordenRepository.findByIdUsuario(100L);
